@@ -37,7 +37,7 @@ public interface EmpDao {
      * @param id 要删除的员工ID
      * @return
      */
-    public Emp delete(Integer id);
+    public void delete(Integer id);
 
     /**
      * 修改员工信息

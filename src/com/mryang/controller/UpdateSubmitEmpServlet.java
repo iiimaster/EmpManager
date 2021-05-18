@@ -16,27 +16,27 @@ import java.io.IOException;
  * @version 1.0.0
  * @ClassName ${NAME}.java
  * @Description TODO
- * @createTime 2021年05月17日 23:53:00
+ * @createTime 2021年05月18日 20:29:00
  */
-@WebServlet(name = "AddEmpServlet")
-public class AddEmpServlet extends HttpServlet {
+public class UpdateSubmitEmpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 获取请求数据
+        request.setCharacterEncoding("UTF-8"); //防止乱码
+        // 获取数据
+        String id = request.getParameter("id");
         String name = request.getParameter("name");
         String age = request.getParameter("age");
         String sex = request.getParameter("sex");
         String salary = request.getParameter("salary");
 
-        Emp emp = new Emp(name, Integer.parseInt(age), Integer.parseInt(sex), Double.parseDouble(salary));
-
+        Emp emp = new Emp(Integer.parseInt(id), name, Integer.parseInt(age), Integer.parseInt(sex), Double.parseDouble(salary));
+        // 处理数据
         EmpDao empDao = new EmpDaoImpl();
-        // 插入员工
-        empDao.insert(emp);
-        // 响应
-        request.getRequestDispatcher("/ListEmpServlet").forward(request, response);
+        empDao.update(emp);
+        // 响应数据
+        response.sendRedirect("/EmpManager/ListEmpServlet");
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

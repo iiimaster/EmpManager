@@ -30,16 +30,16 @@ public class EmpDaoImpl implements EmpDao {
             connection = JdbcUtils.getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1,emp.getName());
-            preparedStatement.setInt(2,emp.getAge());
-            preparedStatement.setInt(3,emp.getSex());
-            preparedStatement.setDouble(4,emp.getSalary());
+            preparedStatement.setString(1, emp.getName());
+            preparedStatement.setInt(2, emp.getAge());
+            preparedStatement.setInt(3, emp.getSex());
+            preparedStatement.setDouble(4, emp.getSalary());
 
             return preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            JdbcUtils.free(resultSet,preparedStatement,connection);
+        } finally {
+            JdbcUtils.free(resultSet, preparedStatement, connection);
         }
         return 0;
     }
@@ -54,7 +54,7 @@ public class EmpDaoImpl implements EmpDao {
             preparedStatement = connection.prepareStatement(sql);
 
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 emps.add(new Emp(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
@@ -65,24 +65,74 @@ public class EmpDaoImpl implements EmpDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            JdbcUtils.free(resultSet,preparedStatement,connection);
+        } finally {
+            JdbcUtils.free(resultSet, preparedStatement, connection);
         }
         return emps;
     }
 
     @Override
     public Emp selectByID(Integer id) {
+        String sql = "select `id`,`name`,`age`,`sex`,`salary` from `emp` where id =?";
+        try {
+            connection = JdbcUtils.getConnection();
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return (new Emp(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("age"),
+                        resultSet.getInt("sex"),
+                        resultSet.getDouble("salary")
+                ));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            JdbcUtils.free(resultSet, preparedStatement, connection);
+        }
         return null;
     }
 
     @Override
-    public Emp delete(Integer id) {
-        return null;
+    public void delete(Integer id) {
+        String sql = "delete from `emp` where id = ?";
+        try {
+            connection = JdbcUtils.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtils.free(resultSet,preparedStatement,connection);
+        }
     }
 
     @Override
     public Emp update(Emp emp) {
-        return null;
+        String sql = "update `emp` set `name`=?,`age`=?,`sex`=?,`salary`=? where id =?";
+        try {
+            connection = JdbcUtils.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, emp.getName());
+            preparedStatement.setInt(2, emp.getAge());
+            preparedStatement.setInt(3, emp.getSex());
+            preparedStatement.setDouble(4, emp.getSalary());
+            preparedStatement.setInt(5,emp.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            JdbcUtils.free(resultSet, preparedStatement, connection);
+            return selectByID(emp.getId());
+        }
     }
 }

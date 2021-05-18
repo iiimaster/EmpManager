@@ -2,7 +2,6 @@ package com.mryang.controller;
 
 import com.mryang.dao.EmpDao;
 import com.mryang.dao.impl.EmpDaoImpl;
-import com.mryang.model.Emp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,27 +15,22 @@ import java.io.IOException;
  * @version 1.0.0
  * @ClassName ${NAME}.java
  * @Description TODO
- * @createTime 2021年05月17日 23:53:00
+ * @createTime 2021年05月18日 14:25:00
  */
-@WebServlet(name = "AddEmpServlet")
-public class AddEmpServlet extends HttpServlet {
+
+public class DeleteEmpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 获取请求数据
-        String name = request.getParameter("name");
-        String age = request.getParameter("age");
-        String sex = request.getParameter("sex");
-        String salary = request.getParameter("salary");
+        // 获取前端提交的数据
+        String id = request.getParameter("id");
 
-        Emp emp = new Emp(name, Integer.parseInt(age), Integer.parseInt(sex), Double.parseDouble(salary));
-
+        // 处理数据
         EmpDao empDao = new EmpDaoImpl();
-        // 插入员工
-        empDao.insert(emp);
-        // 响应
-        request.getRequestDispatcher("/ListEmpServlet").forward(request, response);
+        empDao.delete(Integer.parseInt(id));
+        // 响应数据(跳转页面)
+        response.sendRedirect("/EmpManager/ListEmpServlet");
     }
 }

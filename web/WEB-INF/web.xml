@@ -3,12 +3,48 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <servlet>
         <servlet-name>AddEmpServlet</servlet-name>
         <servlet-class>com.mryang.controller.AddEmpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListEmpServlet</servlet-name>
+        <servlet-class>com.mryang.controller.ListEmpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteEmpServlet</servlet-name>
+        <servlet-class>com.mryang.controller.DeleteEmpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateEmpServlet</servlet-name>
+        <servlet-class>com.mryang.controller.UpdateEmpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSubmitEmpServlet</servlet-name>
+        <servlet-class>com.mryang.controller.UpdateSubmitEmpServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>AddEmpServlet</servlet-name>
         <url-pattern>/AddEmpServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListEmpServlet</servlet-name>
+        <url-pattern>/ListEmpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteEmpServlet</servlet-name>
+        <url-pattern>/DeleteEmpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateEmpServlet</servlet-name>
+        <url-pattern>/UpdateEmpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSubmitEmpServlet</servlet-name>
+        <url-pattern>/UpdateSubmitEmpServlet</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
