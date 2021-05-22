@@ -43,6 +43,14 @@
         <servlet-name>CookieServlet</servlet-name>
         <servlet-class>com.mryang.controller.CookieServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViliNameServlet</servlet-name>
+        <servlet-class>com.mryang.controller.ViliNameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateEmpPlushServlet</servlet-name>
+        <servlet-class>com.mryang.controller.UpdateEmpPlushServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>AddEmpServlet</servlet-name>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>CookieServlet</servlet-name>
         <url-pattern>/CookieServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViliNameServlet</servlet-name>
+        <url-pattern>/ViliNameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateEmpPlushServlet</servlet-name>
+        <url-pattern>/UpdateEmpPlushServlet</url-pattern>
     </servlet-mapping>
 
     <filter-mapping>

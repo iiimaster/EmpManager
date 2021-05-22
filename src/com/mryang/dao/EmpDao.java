@@ -33,6 +33,13 @@ public interface EmpDao {
     public Emp selectByID(Integer id);
 
     /**
+     * 根据name查询员工
+     * @param name 要查询的员工
+     * @return 完整员工信息
+     */
+    public Emp selectByName(String name);
+
+    /**
      * 根据ID删除员工信息
      * @param id 要删除的员工ID
      * @return

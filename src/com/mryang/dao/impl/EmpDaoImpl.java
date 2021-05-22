@@ -99,6 +99,34 @@ public class EmpDaoImpl implements EmpDao {
     }
 
     @Override
+    public Emp selectByName(String name) {
+
+        String sql = "select `id`,`name`,`age`,`sex`,`salary` from `emp` where name =?";
+        try {
+            connection = JdbcUtils.getConnection();
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,name);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return (new Emp(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("age"),
+                        resultSet.getInt("sex"),
+                        resultSet.getDouble("salary")
+                ));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            JdbcUtils.free(resultSet, preparedStatement, connection);
+        }
+        return null;
+    }
+
+    @Override
     public void delete(Integer id) {
         String sql = "delete from `emp` where id = ?";
         try {
