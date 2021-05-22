@@ -26,6 +26,13 @@ public class ListEmpServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 判断用户是否登录，只有登录后才能访问
+//        Object user = request.getSession().getAttribute("user");
+//        if (user == null) { // 未登录
+//            response.sendRedirect("/EmpManager/login.jsp");
+//            return;
+//        }
+
         EmpDao empDao = new EmpDaoImpl();
         try {
             // 查询所有员工数据

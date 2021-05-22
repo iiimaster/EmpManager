@@ -9,7 +9,9 @@
 </head>
 <body>
 <br>
-<h2 align="center">员工管理系统Bate</h2><br>
+<h2 align="center">员工管理系统Bate</h2>
+<div style="margin-left: 1200px" ><span>访问量：${traffic}</span>&nbsp;&nbsp;&nbsp;<span>在线人数：${online}</span></div>
+<br>
 <table align="center" width="550px" border="1" cellpadding="10px">
     <tr align="center">
         <td>编号</td>

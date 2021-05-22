@@ -3,6 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.mryang.controller.filter.LoginFilter</filter-class>
+    </filter>
+
+    <listener>
+        <listener-class>com.mryang.controller.listener.OnlineSessionListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.mryang.controller.listener.TrafficSessionListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>AddEmpServlet</servlet-name>
@@ -23,6 +34,14 @@
     <servlet>
         <servlet-name>UpdateSubmitEmpServlet</servlet-name>
         <servlet-class>com.mryang.controller.UpdateSubmitEmpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginEmpServlet</servlet-name>
+        <servlet-class>com.mryang.controller.LoginEmpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CookieServlet</servlet-name>
+        <servlet-class>com.mryang.controller.CookieServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -45,6 +64,19 @@
         <servlet-name>UpdateSubmitEmpServlet</servlet-name>
         <url-pattern>/UpdateSubmitEmpServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginEmpServlet</servlet-name>
+        <url-pattern>/LoginEmpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CookieServlet</servlet-name>
+        <url-pattern>/CookieServlet</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
 </web-app>
