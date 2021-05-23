@@ -7,6 +7,16 @@
         <filter-name>LoginFilter</filter-name>
         <filter-class>com.mryang.controller.filter.LoginFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>com.mryang.controller.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <!--        <url-pattern>/login.jsp</url-pattern>-->
+        <!--        <url-pattern>/login</url-pattern>-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <listener>
         <listener-class>com.mryang.controller.listener.OnlineSessionListener</listener-class>
@@ -51,6 +61,11 @@
         <servlet-name>UpdateEmpPlushServlet</servlet-name>
         <servlet-class>com.mryang.controller.UpdateEmpPlushServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateSubmitEmpPlushServlet</servlet-name>
+        <servlet-class>com.mryang.controller.updateSubmitEmpPlushServlet</servlet-class>
+    </servlet>
+
 
     <servlet-mapping>
         <servlet-name>AddEmpServlet</servlet-name>
@@ -87,6 +102,10 @@
     <servlet-mapping>
         <servlet-name>UpdateEmpPlushServlet</servlet-name>
         <url-pattern>/UpdateEmpPlushServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateSubmitEmpPlushServlet</servlet-name>
+        <url-pattern>/updateSubmitEmpPlushServlet</url-pattern>
     </servlet-mapping>
 
     <filter-mapping>

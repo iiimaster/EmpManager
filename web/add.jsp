@@ -47,7 +47,7 @@
         <tr>
             <td align="center" colspan="2">
                 <input class="sub" style="margin-right: 50px" type="submit" value="添加">
-                <input class="sub" style="margin-left: 50px" type="submit" value="取消">
+                <input id="reset" class="sub" style="margin-left: 50px" type="button" value="取消">
             </td>
         </tr>
     </table>
@@ -69,6 +69,9 @@
                     });
             }
 
+        });
+        $("#reset").click(function () {
+            window.location.href="/EmpManager/ListEmpServlet";
         });
     });
 </script>

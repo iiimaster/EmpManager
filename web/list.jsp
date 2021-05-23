@@ -35,14 +35,74 @@
     </tr>
     </c:forEach>
 </table>
+
+<div id="udiv" style="display: none">
+    <br><hr>
+    <h2 align="center">本页修改</h2>
+    <br>
+    <div align="center" >
+        编号:<input id="uid" type="text" readonly/>&nbsp;
+        名称:<input id="uname" type="text"/>&nbsp;
+        年龄:<input id="uage" type="text"/>&nbsp;
+        性别:<input class="usex" name="usex" type="radio" value="1"/>男&nbsp;
+        <input class="usex" name="usex" type="radio" value="0"/>女&nbsp;&nbsp;
+        薪资:<input id="usalary" type="text"/><br><br>
+
+        <input id="updateSubmit" type="button" value="确定"/>
+        <input id="reset" type="button" value="取消"/>
+    </div>
+    <br><br><br><hr>
+</div>
+
+
 </body>
 <script>
     $(function () {
+        // 展现要修改的数据
         $(".pageUpdate").click(function () {
             $.get("/EmpManager/UpdateEmpPlushServlet", {id : $(this).attr('empID')},
                 function (data) {
-                    alert("Data Loaded: " + data );
+                    var str = data.split(",");
+                    // alert(str)
+                    $("#uid").val(str[0].split("-")[1]);
+                    $("#uname").val(str[1].split("-")[1]);
+                    $("#uage").val(str[2].split("-")[1]);
+                    // $(".usex").val(str[3].split("-")[1]);
+                    $(":radio").each(function () {
+                        if (str[3].split("-")[1] == $(this).val()){
+                            $(this).attr("checked","checked")
+                        }
+                    })
+                    $("#usalary").val(str[4].split("-")[1]);
+
+                    // 当要点击本页修改时显示修改页面
+                    $("#udiv").show();
                 });
+        })
+
+        // 提交修改的数据
+        $("#updateSubmit").click(function () {
+            $.get("/EmpManager/updateSubmitEmpPlushServlet",
+                {uid : $("#uid").val(),
+                    uname : $("#uname").val(),
+                    uage : $("#uage").val(),
+                    usex : $(":radio").val(),
+                    usalary : $("#usalary").val()
+                },
+                function (data) {
+                    // alert(data);
+                    if (data == "1"){
+                        alert("修改成功");
+                        window.location.href="/EmpManager/ListEmpServlet";
+                    }
+                    if (data == "0") {
+                        alert("修改失败")
+                    }
+                });
+        })
+
+        $("#reset").click(function () {
+            window.location.href="/EmpManager/ListEmpServlet";
         })
     })
 </script>

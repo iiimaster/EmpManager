@@ -142,9 +142,9 @@ public class EmpDaoImpl implements EmpDao {
     }
 
     @Override
-    public Emp update(Emp emp) {
+    public int update(Emp emp) throws Exception {
         String sql = "update `emp` set `name`=?,`age`=?,`sex`=?,`salary`=? where id =?";
-        try {
+
             connection = JdbcUtils.getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
@@ -153,14 +153,9 @@ public class EmpDaoImpl implements EmpDao {
             preparedStatement.setInt(3, emp.getSex());
             preparedStatement.setDouble(4, emp.getSalary());
             preparedStatement.setInt(5,emp.getId());
-
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
+            int i = preparedStatement.executeUpdate();
             JdbcUtils.free(resultSet, preparedStatement, connection);
-            return selectByID(emp.getId());
-        }
+            return i;
+//            return selectByID(emp.getId());
     }
 }

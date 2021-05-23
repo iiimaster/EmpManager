@@ -2,6 +2,7 @@ package com.mryang.dao;
 
 import com.mryang.model.Emp;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -51,6 +52,6 @@ public interface EmpDao {
      * @param emp 要修改的员工信息
      * @return
      */
-    public Emp update(Emp emp);
+    public int update(Emp emp) throws Exception;
 
 }

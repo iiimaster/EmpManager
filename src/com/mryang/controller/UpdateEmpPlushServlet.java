@@ -31,7 +31,10 @@ public class UpdateEmpPlushServlet extends HttpServlet {
 
         Emp emp = empDao.selectByID(Integer.parseInt(id));
 
-        response.getWriter().write(emp.toString());
+        // 字符串拼接
+        String str = "id-" + emp.getId() + ",name-" + emp.getName() + ",age-" + emp.getAge() + ",sex-" + emp.getSex() + ",salary-" + emp.getSalary();
+        // 传递数据到后端
+        response.getWriter().write(str);
 
     }
 }

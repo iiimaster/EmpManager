@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * @author Genius
@@ -31,7 +32,11 @@ public class UpdateSubmitEmpServlet extends HttpServlet {
         Emp emp = new Emp(Integer.parseInt(id), name, Integer.parseInt(age), Integer.parseInt(sex), Double.parseDouble(salary));
         // 处理数据
         EmpDao empDao = new EmpDaoImpl();
-        empDao.update(emp);
+        try {
+            empDao.update(emp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // 响应数据
         response.sendRedirect("/EmpManager/ListEmpServlet");
     }
