@@ -74,13 +74,13 @@ public class Emp {
     }
 
     @Override
-    public String toString() {
-        return "Emp{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", sex=" + sex +
-                ", salary=" + salary +
+    public String toString() { // Json格式的toString()
+        return '{' +
+                "\"id\":" + id +
+                ",\"name\":" +"\""+ name +"\""+
+                ",\"age\":" + age +
+                ",\"sex\":" + sex +
+                ",\"salary\":" + salary +
                 '}';
     }
 }

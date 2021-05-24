@@ -18,7 +18,6 @@ import java.io.IOException;
  * @Description TODO
  * @createTime 2021年05月17日 23:53:00
  */
-@WebServlet(name = "AddEmpServlet")
 public class AddEmpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

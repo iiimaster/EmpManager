@@ -4,8 +4,9 @@
 <head>
     <title>EmaManager</title>
     <script src="jquery-3.4.0.js"></script>
+
 </head>
-<body>
+<body id="body">
 <br>
 <h2 align="center">员工管理系统Bate</h2>
 <div style="margin-left: 1200px" ><span>访问量：${traffic}</span>&nbsp;&nbsp;&nbsp;<span>在线人数：${online}</span></div>
@@ -35,6 +36,14 @@
     </tr>
     </c:forEach>
 </table>
+<br>
+    <div align="center">
+        <a id="PageCount">共${pageNum}页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/EmpManager/DoFirstServlet" >首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/EmpManager/DoUpServlet" >上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/EmpManager/DoDownServlet" id="downPage">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/EmpManager/DoLastServlet" >尾页</a>
+    </div>
 
 <div id="udiv" style="display: none">
     <br><hr>
@@ -58,32 +67,51 @@
 </body>
 <script>
     $(function () {
+
         // 展现要修改的数据
         $(".pageUpdate").click(function () {
-            $.get("/EmpManager/UpdateEmpPlushServlet", {id : $(this).attr('empID')},
+            $.get("/EmpManager/UpdateEmpPlushServlet", {id: $(this).attr('empID')},
                 function (data) {
-                    var str = data.split(",");
-                    // alert(str)
-                    $("#uid").val(str[0].split("-")[1]);
-                    $("#uname").val(str[1].split("-")[1]);
-                    $("#uage").val(str[2].split("-")[1]);
-                    // $(".usex").val(str[3].split("-")[1]);
+                    // alert(data)
+//===============================JSON 方式获取数据(开发常用)=====================
+                    var emp = JSON.parse(data);
+                    // alert(obj.id)
+                    $("#uid").val(emp.id);
+                    $("#uname").val(emp.name);
+                    $("#uage").val(emp.age);
                     $(":radio").each(function () {
-                        if (str[3].split("-")[1] == $(this).val()){
-                            $(this).attr("checked","checked")
+                        if (emp.sex == $(this).val()) {
+                            $(this).attr("checked", "checked")
                         }
                     })
-                    $("#usalary").val(str[4].split("-")[1]);
-
+                    $("#usalary").val(emp.salary);
                     // 当要点击本页修改时显示修改页面
                     $("#udiv").show();
+//===============================JSON 方式获取数据===============================
+
+//==========================原始 字符串拼凑 方式处理数据==========================
+                    // var str = data.split(",");
+                    // // alert(str)
+                    // $("#uid").val(str[0].split("-")[1]);
+                    // $("#uname").val(str[1].split("-")[1]);
+                    // $("#uage").val(str[2].split("-")[1]);
+                    // // $(".usex").val(str[3].split("-")[1]);
+                    // $(":radio").each(function () {
+                    //     if (str[3].split("-")[1] == $(this).val()){
+                    //         $(this).attr("checked","checked")
+                    //     }
+                    // })
+                    // $("#usalary").val(str[4].split("-")[1]);
+                    // 当要点击本页修改时显示修改页面
+                    // $("#udiv").show();
+//==========================原始 字符串拼凑 方式处理数据==========================
                 });
-        })
+        });
 
         // 提交修改的数据
         $("#updateSubmit").click(function () {
             $.get("/EmpManager/updateSubmitEmpPlushServlet",
-                {uid : $("#uid").val(),
+                {   uid : $("#uid").val(),
                     uname : $("#uname").val(),
                     uage : $("#uage").val(),
                     usex : $(":radio").val(),
@@ -101,9 +129,13 @@
                 });
         })
 
+        // 取消按钮
         $("#reset").click(function () {
             window.location.href="/EmpManager/ListEmpServlet";
         })
+
+
+
     })
 </script>
 </html>

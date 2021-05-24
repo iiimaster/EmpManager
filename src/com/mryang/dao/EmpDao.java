@@ -1,6 +1,7 @@
 package com.mryang.dao;
 
 import com.mryang.model.Emp;
+import com.mryang.utils.PageModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,9 +23,23 @@ public interface EmpDao {
 
     /**
      * 查询全部员工
+     *
      * @return
      */
     public ArrayList<Emp> selectAll();
+
+    /**
+     * 分页：查询总记录数
+     * @return 总记录数
+     */
+    public Integer selectTotalCount();
+
+    /**
+     * 分页：根据页数查询员工
+     * @param pageModel 要查询的位置
+     * @return 查询到的数据
+     */
+    public ArrayList<Emp> selectAll(PageModel pageModel);
 
     /**
      * 根据ID查询员工

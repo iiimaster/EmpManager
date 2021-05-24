@@ -3,6 +3,7 @@ package com.mryang.dao.impl;
 import com.mryang.dao.EmpDao;
 import com.mryang.model.Emp;
 import com.mryang.utils.JdbcUtils;
+import com.mryang.utils.PageModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,6 +53,53 @@ public class EmpDaoImpl implements EmpDao {
             connection = JdbcUtils.getConnection();
 
             preparedStatement = connection.prepareStatement(sql);
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                emps.add(new Emp(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("age"),
+                        resultSet.getInt("sex"),
+                        resultSet.getDouble("salary")
+                ));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            JdbcUtils.free(resultSet, preparedStatement, connection);
+        }
+        return emps;
+    }
+
+    @Override
+    public Integer selectTotalCount() {
+        String sql = "select count(*) cou from emp";
+        try {
+            connection = JdbcUtils.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getInt("cou");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public ArrayList<Emp> selectAll(PageModel pageModel) {
+        ArrayList<Emp> emps = new ArrayList<>();
+        String sql = "select `id`,`name`,`age`,`sex`,`salary` from `emp` limit ?,?";
+        try {
+            connection = JdbcUtils.getConnection();
+
+            preparedStatement = connection.prepareStatement(sql);
+            // 从哪个记录数开始
+            preparedStatement.setInt(1, (pageModel.getCurPage() - 1) * pageModel.getPageCount());
+            // 每页显示多少条
+            preparedStatement.setInt(2,pageModel.getPageCount());
 
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
